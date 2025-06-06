@@ -16,13 +16,13 @@ export default function CategoryTabs({ categories, selectedCategoryId, onSelectC
   };
 
   return (
-    <Tabs 
-      value={selectedCategoryId === null ? 'all' : selectedCategoryId} 
+    <Tabs
+      value={selectedCategoryId === null ? 'all' : selectedCategoryId}
       onValueChange={handleValueChange}
-      className="mb-8 w-full flex justify-center"
+      className="mb-8 w-full" // Removed flex justify-center
     >
-      <div className="w-full overflow-x-auto pb-2 no-scrollbar"> {/* Added wrapper for scrolling, pb-2 for scrollbar space */}
-        <TabsList className="bg-card shadow-md mx-auto"> {/* mx-auto for centering when not overflowing */}
+      <div className="w-full overflow-x-auto pb-2 no-scrollbar">
+        <TabsList className="bg-card shadow-md w-full justify-center"> {/* Removed mx-auto, added w-full and justify-center */}
           <TabsTrigger value="all" className="text-base px-4 py-2 whitespace-nowrap">All</TabsTrigger>
           {categories.map((category) => (
             <TabsTrigger key={category.id} value={category.id} className="text-base px-4 py-2 whitespace-nowrap">
