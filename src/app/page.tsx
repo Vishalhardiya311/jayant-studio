@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
@@ -7,6 +8,10 @@ import CategoryTabs from '@/components/gallery/CategoryTabs';
 import PhotoGrid from '@/components/gallery/PhotoGrid';
 import Lightbox from '@/components/gallery/Lightbox';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Heart, Camera, Smile } from 'lucide-react';
 
 export default function GalleryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -29,7 +34,6 @@ export default function GalleryPage() {
         setAllPhotos(fetchedPhotos);
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        // Optionally, set an error state and display an error message
       } finally {
         setLoading(false);
       }
@@ -68,7 +72,11 @@ export default function GalleryPage() {
   
   if (loading) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-12">
+        <div className="text-center space-y-4">
+          <Skeleton className="h-12 w-3/4 mx-auto" />
+          <Skeleton className="h-6 w-full max-w-2xl mx-auto" />
+        </div>
         <div className="flex justify-center">
           <Skeleton className="h-10 w-1/2" />
         </div>
@@ -77,23 +85,107 @@ export default function GalleryPage() {
             <Skeleton key={i} className="h-64 w-full" />
           ))}
         </div>
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <Skeleton className="h-8 w-1/2 mb-4" />
+            <Skeleton className="h-4 w-full mb-2" />
+            <Skeleton className="h-4 w-3/4 mb-2" />
+            <Skeleton className="h-4 w-5/6 mb-4" />
+            <Skeleton className="h-10 w-32" />
+          </div>
+          <Skeleton className="h-80 w-full rounded-lg" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full">
-      <h2 className="text-4xl font-headline text-center mb-4 text-primary">Our Portfolio</h2>
-      <p className="text-xl text-center text-muted-foreground mb-12">
-        Explore a collection of cherished moments, beautifully captured.
-      </p>
+    <div className="w-full space-y-16">
+      <section className="text-center py-12">
+        <h1 className="text-5xl font-headline text-primary mb-6">Welcome to LensBloom</h1>
+        <p className="text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Discover the art of wedding photography where every click tells a story of love, joy, and timeless moments. 
+          We are passionate about capturing the essence of your special day with creativity and elegance.
+        </p>
+        <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Link href="#portfolio">View Our Work</Link>
+        </Button>
+      </section>
+
+      <section id="why-us" className="py-12 bg-muted/40 rounded-lg p-8">
+        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Why Choose LensBloom?</h2>
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+            <Heart className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Passionate Storytelling</h3>
+            <p className="text-muted-foreground">We believe every wedding has a unique story. Our goal is to narrate yours through breathtaking images that you'll cherish forever.</p>
+          </div>
+          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+            <Camera className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Artistic Vision</h3>
+            <p className="text-muted-foreground">With a keen eye for detail and a love for creative composition, we craft photos that are not just pictures, but pieces of art.</p>
+          </div>
+          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+            <Smile className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Personalized Experience</h3>
+            <p className="text-muted-foreground">We work closely with you to understand your vision and preferences, ensuring a comfortable and enjoyable photography experience.</p>
+          </div>
+        </div>
+      </section>
       
-      <CategoryTabs
-        categories={categories}
-        selectedCategoryId={selectedCategoryId}
-        onSelectCategory={setSelectedCategoryId}
-      />
-      <PhotoGrid photos={filteredPhotos} onPhotoClick={handlePhotoClick} />
+      <section id="portfolio" className="py-12">
+        <h2 className="text-4xl font-headline text-center mb-4 text-primary">Our Portfolio</h2>
+        <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+          Explore a collection of cherished moments, beautifully captured across various wedding events. Each photograph is a testament to the love and joy we've had the honor to witness.
+        </p>
+        
+        <CategoryTabs
+          categories={categories}
+          selectedCategoryId={selectedCategoryId}
+          onSelectCategory={setSelectedCategoryId}
+        />
+        <PhotoGrid photos={filteredPhotos} onPhotoClick={handlePhotoClick} />
+      </section>
+
+      <section className="py-12">
+        <div className="grid md:grid-cols-2 gap-12 items-center bg-card p-8 md:p-12 rounded-lg shadow-lg">
+          <div className="order-2 md:order-1">
+            <h2 className="text-4xl font-headline text-primary mb-6">Our Approach to Your Day</h2>
+            <p className="text-lg text-muted-foreground mb-4">
+              From the initial consultation to the final delivery of your beautifully edited photos, we are dedicated to providing a seamless and stress-free experience. We focus on capturing authentic emotions and candid moments, blending into the background to let your day unfold naturally.
+            </p>
+            <ul className="space-y-3 text-muted-foreground mb-6 list-disc list-inside">
+              <li>Understanding your unique style and preferences.</li>
+              <li>Scouting locations and planning for the perfect shots.</li>
+              <li>Using professional equipment for high-quality results.</li>
+              <li>Delivering a stunning gallery of memories in a timely manner.</li>
+            </ul>
+            <Button size="lg" asChild className="bg-secondary hover:bg-secondary/80 text-secondary-foreground">
+              <Link href="/admin">Learn More (Admin Link)</Link>
+            </Button>
+          </div>
+          <div className="order-1 md:order-2">
+            <Image 
+              src="https://placehold.co/600x450.png" 
+              alt="Photographer in action" 
+              width={600} 
+              height={450} 
+              className="rounded-lg shadow-md object-cover"
+              data-ai-hint="photographer camera"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="text-center py-12 bg-muted/40 rounded-lg p-8">
+        <h2 className="text-4xl font-headline text-primary mb-6">Ready to Create Magic Together?</h2>
+        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          If you're looking for a wedding photographer who will capture your day with passion and artistry, we'd love to hear from you. Let's discuss your vision and how we can make your wedding memories last a lifetime.
+        </p>
+        <Button size="lg" variant="default" asChild>
+          <Link href="/admin">Contact Us (Admin Link)</Link>
+        </Button>
+      </section>
       
       {currentPhoto && (
         <Lightbox
@@ -109,3 +201,4 @@ export default function GalleryPage() {
     </div>
   );
 }
+

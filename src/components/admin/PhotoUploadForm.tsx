@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
@@ -68,7 +69,7 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     <Card>
       <CardHeader>
         <CardTitle>Upload New Photo</CardTitle>
-        <CardDescription>Add a new photo to your gallery. Select a category and provide an optional title.</CardDescription>
+        <CardDescription>Add a new photo to your gallery. Select a category, provide an optional title, and an AI hint for image searching.</CardDescription>
       </CardHeader>
       <CardContent>
         <form ref={formRef} action={formAction} className="space-y-6">
@@ -91,6 +92,19 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          
+          <div>
+            <Label htmlFor="aiHint" className="font-semibold">AI Hint</Label>
+            <Input 
+              id="aiHint" 
+              name="aiHint" 
+              type="text" 
+              placeholder="e.g., couple beach (1-2 words)" 
+              required 
+              className="mt-1"
+            />
+            <p className="text-xs text-muted-foreground mt-1">One or two keywords for AI image search if using placeholders.</p>
           </div>
 
           <div>
@@ -117,3 +131,4 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     </Card>
   );
 }
+
