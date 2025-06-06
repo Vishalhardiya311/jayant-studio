@@ -2,7 +2,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Camera, Menu, X } from 'lucide-react';
+import { Camera, Menu, X, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useState } from 'react';
@@ -26,7 +26,7 @@ export default function SiteHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:block">
+        <nav className="hidden md:flex items-center gap-4">
           <ul className="flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -36,17 +36,35 @@ export default function SiteHeader() {
               </li>
             ))}
           </ul>
+          <a 
+            href="https://www.instagram.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-foreground hover:text-primary transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram className="h-6 w-6" />
+          </a>
         </nav>
 
         {/* Mobile Navigation --- Hamburger Menu */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-2">
+          <a 
+            href="https://www.instagram.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-foreground hover:text-primary transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram className="h-6 w-6" />
+          </a>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open menu">
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-card">
+            <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-card p-0">
               <div className="flex flex-col h-full">
                 <div className="flex justify-between items-center p-4 border-b">
                    <Link href="/" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
