@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 // IMPORTANT: In a real application, use an environment variable for the security key.
 // For example, set ADMIN_KEY in your .env.local file.
-const ADMIN_SECURITY_KEY = process.env.ADMIN_KEY || 'SUPER_SECRET_KEY_DEMO'; 
+const ADMIN_SECURITY_KEY = process.env.ADMIN_KEY || 'jayant pal ji'; 
 
 export interface LoginFormState {
   message: string;
