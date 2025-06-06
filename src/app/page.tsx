@@ -145,7 +145,7 @@ export default function GalleryPage() {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{objectFit:"cover"}}
               className="rounded-lg"
-              data-ai-hint="photographer portrait"
+              data-ai-hint="man portrait"
             />
           </div>
         </div>
