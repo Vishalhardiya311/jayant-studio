@@ -103,7 +103,7 @@ export default function GalleryPage() {
     <div className="w-full space-y-12 md:space-y-16">
       <section className="relative text-center py-16 md:py-24 min-h-[400px] md:min-h-[550px] flex flex-col justify-center items-center rounded-lg overflow-hidden">
         <Image
-          src="https://placehold.co/1920x1080.png"
+          src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiYWNrZ3JvdW5kfGVufDB8fHx8MTc0OTI0Mjc1OHww&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Elegant wedding photography background"
           fill
           sizes="100vw"
