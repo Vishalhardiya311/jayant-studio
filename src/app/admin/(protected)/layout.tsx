@@ -1,10 +1,11 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Image as ImageIcon, Layers, LogOut } from 'lucide-react';
+import { LayoutDashboard, Image as ImageIcon, Layers, LogOut, Eye } from 'lucide-react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { logoutAdmin } from '../login/actions'; // Adjusted path
+import { AdminNavClient } from './admin-nav-client'; // Using a client component for active links
 
 export default function AdminLayout({
   children,
@@ -16,30 +17,22 @@ export default function AdminLayout({
     redirect('/admin/login');
   }
 
+  const navLinks = [
+    { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/categories", label: "Categories", icon: Layers },
+    { href: "/admin/photos", label: "Photos", icon: ImageIcon },
+  ];
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-var(--header-height)-var(--footer-height))]">
-      <header className="bg-card border-b p-4 shadow-sm">
+      <header className="bg-card border-b p-4 shadow-md"> {/* Added shadow-md */}
         <div className="container mx-auto flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-2">
           <h1 className="text-2xl font-headline text-primary text-center md:text-left">Admin Panel</h1>
           <nav className="flex flex-wrap gap-2 justify-center md:justify-end items-center">
-            <Button variant="ghost" asChild size="sm">
-              <Link href="/admin">
-                <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild size="sm">
-              <Link href="/admin/categories">
-                <Layers className="mr-2 h-4 w-4" /> Categories
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild size="sm">
-              <Link href="/admin/photos">
-                <ImageIcon className="mr-2 h-4 w-4" /> Photos
-              </Link>
-            </Button>
-             <Button variant="outline" asChild size="sm">
+            <AdminNavClient navLinks={navLinks} />
+            <Button variant="outline" asChild size="sm">
               <Link href="/">
-                View Site
+                <Eye className="mr-2 h-4 w-4" /> View Site
               </Link>
             </Button>
             <form action={logoutAdmin}>

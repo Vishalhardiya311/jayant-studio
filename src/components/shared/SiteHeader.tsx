@@ -7,22 +7,24 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 export default function SiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { href: "/", label: "Gallery" },
+    { href: "/#contact", label: "Contact" }, // Example link to a section
     { href: "/admin", label: "Admin" },
-    // Add more navigation items here if needed, e.g., About, Contact
   ];
 
   return (
     <header className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
-          <Camera className="h-8 w-8" />
-          <h1 className="text-3xl font-headline font-semibold">Jayant Studio</h1>
+          <Camera className="h-8 w-8 md:h-9 md:w-9" />
+          <h1 className="text-3xl md:text-4xl font-headline font-bold">Jayant Studio</h1>
         </Link>
 
         {/* Desktop Navigation */}
@@ -30,16 +32,22 @@ export default function SiteHeader() {
           <ul className="flex items-center gap-6">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-lg text-foreground hover:text-primary transition-colors">
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-lg text-foreground hover:text-primary transition-colors",
+                    pathname === link.href && "text-primary font-semibold"
+                  )}
+                >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <a 
-            href="https://www.instagram.com/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-foreground hover:text-primary transition-colors"
             aria-label="Instagram"
           >
@@ -49,10 +57,10 @@ export default function SiteHeader() {
 
         {/* Mobile Navigation --- Hamburger Menu */}
         <div className="md:hidden flex items-center gap-2">
-          <a 
-            href="https://www.instagram.com/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-foreground hover:text-primary transition-colors"
             aria-label="Instagram"
           >
@@ -84,7 +92,10 @@ export default function SiteHeader() {
                         <SheetClose asChild>
                           <Link
                             href={link.href}
-                            className="block text-lg text-foreground hover:text-primary transition-colors py-2"
+                            className={cn(
+                              "block text-lg text-foreground hover:text-primary transition-colors py-2",
+                              pathname === link.href && "text-primary font-semibold"
+                            )}
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {link.label}
