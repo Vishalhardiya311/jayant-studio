@@ -74,8 +74,8 @@ export default function GalleryPage() {
     return (
       <div className="space-y-12">
         <div className="text-center space-y-4">
-          <Skeleton className="h-12 w-3/4 mx-auto" />
-          <Skeleton className="h-6 w-full max-w-2xl mx-auto" />
+          <Skeleton className="h-10 md:h-12 w-3/4 mx-auto" />
+          <Skeleton className="h-5 md:h-6 w-full max-w-2xl mx-auto" />
         </div>
         <div className="flex justify-center">
           <Skeleton className="h-10 w-1/2" />
@@ -100,10 +100,10 @@ export default function GalleryPage() {
   }
 
   return (
-    <div className="w-full space-y-16">
-      <section className="text-center py-12">
-        <h1 className="text-5xl font-headline text-primary mb-6">Welcome to Jayant Studio</h1>
-        <p className="text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+    <div className="w-full space-y-12 md:space-y-16">
+      <section className="text-center py-8 md:py-12">
+        <h1 className="text-4xl md:text-5xl font-headline text-primary mb-6">Welcome to Jayant Studio</h1>
+        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
           Discover the art of wedding photography where every click tells a story of love, joy, and timeless moments. 
           We are passionate about capturing the essence of your special day with creativity and elegance.
         </p>
@@ -112,14 +112,14 @@ export default function GalleryPage() {
         </Button>
       </section>
 
-      <section id="introduction" className="py-12 bg-card rounded-lg p-8 shadow-lg">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="introduction" className="py-8 md:py-12 bg-card rounded-lg p-6 md:p-8 shadow-lg">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <h2 className="text-4xl font-headline text-primary mb-6">Meet Jayant: Your Wedding Storyteller</h2>
-            <p className="text-lg text-muted-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-headline text-primary mb-6">Meet Jayant: Your Wedding Storyteller</h2>
+            <p className="text-base md:text-lg text-muted-foreground mb-4">
               Hello! I'm Jayant, the heart and lens behind Jayant Studio. With years of experience and a deep passion for capturing genuine emotions, I specialize in creating wedding albums that are as unique and beautiful as your love story. My approach is personal and unobtrusive, allowing me to document the authentic moments that make your day truly yours.
             </p>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base md:text-lg text-muted-foreground">
               From the grandest celebrations to the most intimate elopements, I strive to create images that not only look stunning but also evoke the feelings and memories of your wedding day for years to come.
             </p>
           </div>
@@ -127,40 +127,42 @@ export default function GalleryPage() {
             <Image 
               src="https://placehold.co/600x450.png" 
               alt="Jayant, the photographer" 
-              layout="fill"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               objectFit="cover"
               className="rounded-lg"
               data-ai-hint="photographer portrait"
+              priority
             />
           </div>
         </div>
       </section>
 
 
-      <section id="why-us" className="py-12 bg-muted/40 rounded-lg p-8">
-        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Why Choose Jayant Studio?</h2>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+      <section id="why-us" className="py-8 md:py-12 bg-muted/40 rounded-lg p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-headline text-center mb-8 md:mb-10 text-primary">Why Choose Jayant Studio?</h2>
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8 text-center">
           <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
-            <Heart className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Passionate Storytelling</h3>
-            <p className="text-muted-foreground">We believe every wedding has a unique story. Our goal is to narrate yours through breathtaking images that you'll cherish forever.</p>
+            <Heart className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Passionate Storytelling</h3>
+            <p className="text-sm md:text-base text-muted-foreground">We believe every wedding has a unique story. Our goal is to narrate yours through breathtaking images that you'll cherish forever.</p>
           </div>
           <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
-            <Camera className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Artistic Vision</h3>
-            <p className="text-muted-foreground">With a keen eye for detail and a love for creative composition, we craft photos that are not just pictures, but pieces of art.</p>
+            <Camera className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Artistic Vision</h3>
+            <p className="text-sm md:text-base text-muted-foreground">With a keen eye for detail and a love for creative composition, we craft photos that are not just pictures, but pieces of art.</p>
           </div>
           <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
-            <Smile className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Personalized Experience</h3>
-            <p className="text-muted-foreground">We work closely with you to understand your vision and preferences, ensuring a comfortable and enjoyable photography experience.</p>
+            <Smile className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Personalized Experience</h3>
+            <p className="text-sm md:text-base text-muted-foreground">We work closely with you to understand your vision and preferences, ensuring a comfortable and enjoyable photography experience.</p>
           </div>
         </div>
       </section>
       
-      <section id="portfolio" className="py-12">
-        <h2 className="text-4xl font-headline text-center mb-4 text-primary">Our Portfolio</h2>
-        <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+      <section id="portfolio" className="py-8 md:py-12">
+        <h2 className="text-3xl md:text-4xl font-headline text-center mb-4 text-primary">Our Portfolio</h2>
+        <p className="text-lg md:text-xl text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
           Explore a collection of cherished moments, beautifully captured across various wedding events. Each photograph is a testament to the love and joy we've had the honor to witness.
         </p>
         
@@ -172,35 +174,35 @@ export default function GalleryPage() {
         <PhotoGrid photos={filteredPhotos} onPhotoClick={handlePhotoClick} />
       </section>
 
-      <section id="services" className="py-12 bg-card rounded-lg p-8 shadow-lg">
-        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Our Services</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section id="services" className="py-8 md:py-12 bg-card rounded-lg p-6 md:p-8 shadow-lg">
+        <h2 className="text-3xl md:text-4xl font-headline text-center mb-8 md:mb-10 text-primary">Our Services</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <Users className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Full Wedding Coverage</h3>
-            <p className="text-muted-foreground">Comprehensive photography from pre-wedding preparations to the final send-off. We capture every significant moment.</p>
+            <Users className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Full Wedding Coverage</h3>
+            <p className="text-sm md:text-base text-muted-foreground">Comprehensive photography from pre-wedding preparations to the final send-off. We capture every significant moment.</p>
           </div>
           <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <Award className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Engagement Shoots</h3>
-            <p className="text-muted-foreground">Beautiful and relaxed engagement sessions at a location of your choice, perfect for save-the-dates or just to celebrate your love.</p>
+            <Award className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Engagement Shoots</h3>
+            <p className="text-sm md:text-base text-muted-foreground">Beautiful and relaxed engagement sessions at a location of your choice, perfect for save-the-dates or just to celebrate your love.</p>
           </div>
           <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <CalendarDays className="h-12 w-12 text-primary mb-4" />
-            <h3 className="text-2xl font-semibold mb-2">Custom Packages</h3>
-            <p className="text-muted-foreground">Tailored packages to suit your specific needs, including destination weddings, elopements, and multi-day events.</p>
+            <CalendarDays className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-2">Custom Packages</h3>
+            <p className="text-sm md:text-base text-muted-foreground">Tailored packages to suit your specific needs, including destination weddings, elopements, and multi-day events.</p>
           </div>
         </div>
       </section>
 
-      <section className="py-12">
-        <div className="grid md:grid-cols-2 gap-12 items-center bg-card p-8 md:p-12 rounded-lg shadow-lg">
+      <section className="py-8 md:py-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center bg-card p-6 md:p-12 rounded-lg shadow-lg">
           <div className="order-2 md:order-1">
-            <h2 className="text-4xl font-headline text-primary mb-6">Our Approach to Your Day</h2>
-            <p className="text-lg text-muted-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-headline text-primary mb-6">Our Approach to Your Day</h2>
+            <p className="text-base md:text-lg text-muted-foreground mb-4">
               From the initial consultation to the final delivery of your beautifully edited photos, we are dedicated to providing a seamless and stress-free experience. We focus on capturing authentic emotions and candid moments, blending into the background to let your day unfold naturally.
             </p>
-            <ul className="space-y-3 text-muted-foreground mb-6 list-disc list-inside">
+            <ul className="space-y-3 text-sm md:text-base text-muted-foreground mb-6 list-disc list-inside">
               <li>Understanding your unique style and preferences.</li>
               <li>Scouting locations and planning for the perfect shots.</li>
               <li>Using professional equipment for high-quality results.</li>
@@ -214,7 +216,8 @@ export default function GalleryPage() {
             <Image 
               src="https://placehold.co/600x450.png" 
               alt="Photographer in action" 
-              layout="fill"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               objectFit="cover"
               className="rounded-lg"
               data-ai-hint="photographer camera"
@@ -223,9 +226,9 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="text-center py-12 bg-muted/40 rounded-lg p-8">
-        <h2 className="text-4xl font-headline text-primary mb-6">Ready to Create Magic Together?</h2>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+      <section className="text-center py-8 md:py-12 bg-muted/40 rounded-lg p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-headline text-primary mb-6">Ready to Create Magic Together?</h2>
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           If you're looking for a wedding photographer who will capture your day with passion and artistry, we'd love to hear from you. Let's discuss your vision and how we can make your wedding memories last a lifetime.
         </p>
         <Button size="lg" variant="default" asChild>
@@ -240,8 +243,8 @@ export default function GalleryPage() {
           onClose={handleCloseLightbox}
           onNext={handleNextPhoto}
           onPrev={handlePrevPhoto}
-          hasNext={filteredPhotos.length > 1 && currentPhotoIndex < filteredPhotos.length -1}
-          hasPrev={filteredPhotos.length > 1 && currentPhotoIndex > 0}
+          hasNext={filteredPhotos.length > 1} 
+          hasPrev={filteredPhotos.length > 1}
         />
       )}
     </div>
