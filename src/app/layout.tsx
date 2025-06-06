@@ -5,8 +5,8 @@ import SiteHeader from '@/components/shared/SiteHeader';
 import SiteFooter from '@/components/shared/SiteFooter';
 
 export const metadata: Metadata = {
-  title: 'LensBloom - Wedding Photography',
-  description: 'Capturing timeless moments with artistic wedding photography. LensBloom showcases beautiful wedding photos in various categories.',
+  title: 'Jayant Studio - Wedding Photography',
+  description: 'Capturing timeless moments with artistic wedding photography. Jayant Studio showcases beautiful wedding photos in various categories.',
 };
 
 export default function RootLayout({

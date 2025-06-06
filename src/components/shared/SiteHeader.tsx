@@ -7,7 +7,7 @@ export default function SiteHeader() {
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
           <Camera className="h-8 w-8" />
-          <h1 className="text-3xl font-headline font-semibold">LensBloom</h1>
+          <h1 className="text-3xl font-headline font-semibold">Jayant Studio</h1>
         </Link>
         <nav>
           <ul className="flex items-center gap-6">

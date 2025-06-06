@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Camera, Smile } from 'lucide-react';
+import { Heart, Camera, Smile, Users, Award, CalendarDays } from 'lucide-react';
 
 export default function GalleryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -102,7 +102,7 @@ export default function GalleryPage() {
   return (
     <div className="w-full space-y-16">
       <section className="text-center py-12">
-        <h1 className="text-5xl font-headline text-primary mb-6">Welcome to LensBloom</h1>
+        <h1 className="text-5xl font-headline text-primary mb-6">Welcome to Jayant Studio</h1>
         <p className="text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
           Discover the art of wedding photography where every click tells a story of love, joy, and timeless moments. 
           We are passionate about capturing the essence of your special day with creativity and elegance.
@@ -112,8 +112,33 @@ export default function GalleryPage() {
         </Button>
       </section>
 
+      <section id="introduction" className="py-12 bg-card rounded-lg p-8 shadow-lg">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-4xl font-headline text-primary mb-6">Meet Jayant: Your Wedding Storyteller</h2>
+            <p className="text-lg text-muted-foreground mb-4">
+              Hello! I'm Jayant, the heart and lens behind Jayant Studio. With years of experience and a deep passion for capturing genuine emotions, I specialize in creating wedding albums that are as unique and beautiful as your love story. My approach is personal and unobtrusive, allowing me to document the authentic moments that make your day truly yours.
+            </p>
+            <p className="text-lg text-muted-foreground">
+              From the grandest celebrations to the most intimate elopements, I strive to create images that not only look stunning but also evoke the feelings and memories of your wedding day for years to come.
+            </p>
+          </div>
+          <div className="relative aspect-square md:aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+            <Image 
+              src="https://placehold.co/600x450.png" 
+              alt="Jayant, the photographer" 
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
+              data-ai-hint="photographer portrait"
+            />
+          </div>
+        </div>
+      </section>
+
+
       <section id="why-us" className="py-12 bg-muted/40 rounded-lg p-8">
-        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Why Choose LensBloom?</h2>
+        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Why Choose Jayant Studio?</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center">
           <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
             <Heart className="h-12 w-12 text-primary mb-4" />
@@ -147,6 +172,27 @@ export default function GalleryPage() {
         <PhotoGrid photos={filteredPhotos} onPhotoClick={handlePhotoClick} />
       </section>
 
+      <section id="services" className="py-12 bg-card rounded-lg p-8 shadow-lg">
+        <h2 className="text-4xl font-headline text-center mb-10 text-primary">Our Services</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <Users className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Full Wedding Coverage</h3>
+            <p className="text-muted-foreground">Comprehensive photography from pre-wedding preparations to the final send-off. We capture every significant moment.</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <Award className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Engagement Shoots</h3>
+            <p className="text-muted-foreground">Beautiful and relaxed engagement sessions at a location of your choice, perfect for save-the-dates or just to celebrate your love.</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <CalendarDays className="h-12 w-12 text-primary mb-4" />
+            <h3 className="text-2xl font-semibold mb-2">Custom Packages</h3>
+            <p className="text-muted-foreground">Tailored packages to suit your specific needs, including destination weddings, elopements, and multi-day events.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12">
         <div className="grid md:grid-cols-2 gap-12 items-center bg-card p-8 md:p-12 rounded-lg shadow-lg">
           <div className="order-2 md:order-1">
@@ -164,13 +210,13 @@ export default function GalleryPage() {
               <Link href="/admin">Learn More (Admin Link)</Link>
             </Button>
           </div>
-          <div className="order-1 md:order-2">
+          <div className="order-1 md:order-2 relative aspect-square md:aspect-[4/3] rounded-lg overflow-hidden shadow-md">
             <Image 
               src="https://placehold.co/600x450.png" 
               alt="Photographer in action" 
-              width={600} 
-              height={450} 
-              className="rounded-lg shadow-md object-cover"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
               data-ai-hint="photographer camera"
             />
           </div>
@@ -194,11 +240,10 @@ export default function GalleryPage() {
           onClose={handleCloseLightbox}
           onNext={handleNextPhoto}
           onPrev={handlePrevPhoto}
-          hasNext={currentPhotoIndex < filteredPhotos.length - 1}
-          hasPrev={currentPhotoIndex > 0}
+          hasNext={filteredPhotos.length > 1 && currentPhotoIndex < filteredPhotos.length -1}
+          hasPrev={filteredPhotos.length > 1 && currentPhotoIndex > 0}
         />
       )}
     </div>
   );
 }
-
