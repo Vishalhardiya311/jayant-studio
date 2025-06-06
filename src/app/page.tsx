@@ -188,21 +188,34 @@ export default function GalleryPage() {
 
       <section id="services" className="py-8 md:py-12 bg-card rounded-lg p-6 md:p-8 shadow-lg">
         <h2 className="text-3xl md:text-4xl font-headline text-center mb-8 md:mb-10 text-primary">Our Services</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <Users className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Full Wedding Coverage</h3>
-            <p className="text-sm md:text-base text-card-foreground/70">Comprehensive photography from pre-wedding preparations to the final send-off. We capture every significant moment.</p>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 gap-6 md:gap-8">
+            <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <Users className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Full Wedding Coverage</h3>
+              <p className="text-sm md:text-base text-card-foreground/70">Comprehensive photography from pre-wedding preparations to the final send-off. We capture every significant moment.</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <Award className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Engagement Shoots</h3>
+              <p className="text-sm md:text-base text-card-foreground/70">Beautiful and relaxed engagement sessions at a location of your choice, perfect for save-the-dates or just to celebrate your love.</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <CalendarDays className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Custom Packages</h3>
+              <p className="text-sm md:text-base text-card-foreground/70">Tailored packages to suit your specific needs, including destination weddings, elopements, and multi-day events.</p>
+            </div>
           </div>
-          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <Award className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Engagement Shoots</h3>
-            <p className="text-sm md:text-base text-card-foreground/70">Beautiful and relaxed engagement sessions at a location of your choice, perfect for save-the-dates or just to celebrate your love.</p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 border border-border rounded-lg hover:shadow-lg transition-shadow">
-            <CalendarDays className="h-10 w-10 md:h-12 md:w-12 text-primary mb-4" />
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-card-foreground">Custom Packages</h3>
-            <p className="text-sm md:text-base text-card-foreground/70">Tailored packages to suit your specific needs, including destination weddings, elopements, and multi-day events.</p>
+          <div className="relative aspect-square md:aspect-[4/3] rounded-lg overflow-hidden shadow-md order-first md:order-last">
+            <Image 
+              src="https://placehold.co/600x450.png" 
+              alt="Wedding photography services collage" 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{objectFit:"cover"}}
+              className="rounded-lg"
+              data-ai-hint="wedding collage"
+            />
           </div>
         </div>
       </section>
