@@ -1,10 +1,14 @@
+
+import React from 'react';
 import CategoryForm from "@/components/admin/CategoryForm";
 import CategoryList from "@/components/admin/CategoryList";
-import { getCategories } from "@/lib/data"; // Assuming this can be called server-side
+import { getCategories } from "@/lib/data";
 
 export const dynamic = 'force-dynamic'; // Ensure fresh data on each request
 
-export default async function ManageCategoriesPage() {
+export default async function ManageCategoriesPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  React.use(searchParams); // Explicitly consume/resolve the searchParams Thenable
+
   const categories = await getCategories();
 
   return (
