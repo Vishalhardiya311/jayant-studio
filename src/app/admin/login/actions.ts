@@ -17,11 +17,13 @@ export async function verifyAdminKey(
   prevState: LoginFormState | undefined,
   formData: FormData
 ): Promise<LoginFormState> {
-  const key = formData.get('securityKey') as string;
+  const rawKey = formData.get('securityKey') as string;
 
-  if (!key || key.trim() === '') {
+  if (!rawKey || rawKey.trim().length === 0) {
     return { message: 'Security key cannot be empty.', type: 'error' };
   }
+
+  const key = rawKey.trim(); // Use the trimmed key for comparison
 
   if (key === ADMIN_SECURITY_KEY) {
     cookies().set({
@@ -43,3 +45,4 @@ export async function logoutAdmin() {
   cookies().delete({ name: 'admin_session_active', path: '/admin' });
   redirect('/admin/login');
 }
+
