@@ -3,14 +3,20 @@ import React from 'react';
 import PhotoUploadForm from "@/components/admin/PhotoUploadForm";
 import PhotoList from "@/components/admin/PhotoList";
 import { getCategories, getPhotos } from "@/lib/data";
+import type { Category, Photo } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ManagePhotosPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-  React.use(searchParams); // Explicitly consume/resolve the searchParams Thenable
+  React.use(searchParams); // Ensure searchParams Thenable is resolved
 
-  const categories = await getCategories();
-  const photos = await getPhotos(); // Fetch all photos, PhotoList can display category name
+  let categories: Category[] = [];
+  let photos: Photo[] = [];
+  
+  // Fetch data. Errors here should be caught by the nearest error.js or global error handler.
+  // For more specific error handling on this page, you could wrap this in a try/catch.
+  categories = await getCategories();
+  photos = await getPhotos(); 
 
   return (
     <div className="space-y-8">
