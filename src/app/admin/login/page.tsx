@@ -1,13 +1,13 @@
 
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useRef } from 'react'; // Changed from react-dom
+import { useFormStatus } from 'react-dom'; // useFormStatus remains in react-dom
 import { verifyAdminKey, type LoginFormState } from './actions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { KeyRound, LogIn } from 'lucide-react';
 
@@ -22,7 +22,7 @@ function SubmitButton() {
 
 export default function AdminLoginPage() {
   const initialState: LoginFormState | undefined = undefined;
-  const [state, formAction] = useFormState(verifyAdminKey, initialState);
+  const [state, formAction] = useActionState(verifyAdminKey, initialState); // Changed to useActionState
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 

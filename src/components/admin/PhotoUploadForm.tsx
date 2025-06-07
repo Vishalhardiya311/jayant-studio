@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect, useRef, useState } from "react"; // Changed from react-dom
+import { useFormStatus } from "react-dom"; // useFormStatus remains in react-dom
 import { uploadPhoto, type PhotoUploadFormState } from "@/app/admin/actions";
 import type { Category } from "@/lib/types";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { UploadCloud } from "lucide-react";
@@ -29,7 +29,7 @@ function SubmitButton() {
 
 export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
   const initialState: PhotoUploadFormState | undefined = undefined;
-  const [state, formAction] = useFormState(uploadPhoto, initialState);
+  const [state, formAction] = useActionState(uploadPhoto, initialState); // Changed to useActionState
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -131,4 +131,3 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     </Card>
   );
 }
-

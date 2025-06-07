@@ -1,12 +1,13 @@
+
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect, useRef } from "react"; // Changed from react-dom
+import { useFormStatus } from "react-dom"; // useFormStatus remains in react-dom
 import { createCategory, type CategoryFormState } from "@/app/admin/actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { PlusCircle } from "lucide-react";
 
@@ -21,7 +22,7 @@ function SubmitButton() {
 
 export default function CategoryForm() {
   const initialState: CategoryFormState | undefined = undefined;
-  const [state, formAction] = useFormState(createCategory, initialState);
+  const [state, formAction] = useActionState(createCategory, initialState); // Changed to useActionState
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
