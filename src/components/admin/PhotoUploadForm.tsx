@@ -95,13 +95,12 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
           </div>
           
           <div>
-            <Label htmlFor="aiHint" className="font-semibold">AI Hint</Label>
+            <Label htmlFor="aiHint" className="font-semibold">AI Hint (Optional)</Label>
             <Input 
               id="aiHint" 
               name="aiHint" 
               type="text" 
               placeholder="e.g., couple beach (1-2 words)" 
-              required 
               className="mt-1"
             />
             <p className="text-xs text-muted-foreground mt-1">One or two keywords for AI image search if using placeholders.</p>
@@ -131,3 +130,4 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     </Card>
   );
 }
+

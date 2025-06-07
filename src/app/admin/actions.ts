@@ -55,7 +55,7 @@ export async function uploadPhoto(
   const title = formData.get("title") as string;
   const categoryId = formData.get("categoryId") as string;
   const imageFile = formData.get("imageFile") as File;
-  const aiHint = formData.get("aiHint") as string; // Get AI hint
+  const aiHintValue = formData.get("aiHint") as string | null;
 
   if (!categoryId) {
     return { message: "Please select a category.", type: "error" };
@@ -63,19 +63,18 @@ export async function uploadPhoto(
   if (!imageFile || imageFile.size === 0) {
     return { message: "Please select an image file.", type: "error" };
   }
-   if (!aiHint || aiHint.trim().length === 0) {
-    return { message: "Please provide an AI hint for the image (1-2 keywords).", type: "error" };
-  }
-  if (aiHint.split(' ').length > 2) {
-    return { message: "AI hint should be one or two words.", type: "error" };
-  }
 
+  const finalAiHint = aiHintValue ? aiHintValue.trim() : "";
+
+  // AI hint is optional. If provided (not an empty string after trim), it must be 1 or 2 words.
+  if (finalAiHint && finalAiHint.split(' ').length > 2) {
+    return { message: "AI hint, if provided, should be one or two words.", type: "error" };
+  }
 
   try {
     // Simulate image upload to a service like Firebase Storage or Cloudinary
     // For now, we'll just use a placeholder URL structure.
     // Using a generic placeholder as actual file upload isn't implemented.
-    // The text parameter in placehold.co is just for visual feedback in this simulation.
     const imageUrl = `https://placehold.co/600x400.png`; 
     
     const newPhoto: Photo = {
@@ -83,7 +82,7 @@ export async function uploadPhoto(
       title: title || "Untitled Photo",
       categoryId,
       imageUrl,
-      aiHint: aiHint.trim() // Save the AI hint
+      aiHint: finalAiHint // Save the potentially empty AI hint
     };
     photosData.push(newPhoto); // Add to in-memory store
     console.log("Uploaded photo:", newPhoto);
