@@ -1,26 +1,28 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Eye, LogOut } from 'lucide-react'; // LayoutDashboard, Image, Layers are no longer directly used here for navLinks prop
+import { Eye, LogOut } from 'lucide-react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { logoutAdmin } from '../login/actions'; 
 import { AdminNavClient } from './admin-nav-client'; 
 
-export default function AdminLayout({
+export default async function AdminLayout({ // Made this function async
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const sessionCookie = cookies().get('admin_session_active');
+  const cookieStore = cookies(); // Access cookie store
+  const sessionCookie = cookieStore.get('admin_session_active'); // Get specific cookie
+
   if (!sessionCookie || sessionCookie.value !== 'true') {
     redirect('/admin/login');
   }
 
   const navLinks = [
-    { href: "/admin", label: "Dashboard", iconName: "LayoutDashboard" },
-    { href: "/admin/categories", label: "Categories", iconName: "Layers" },
-    { href: "/admin/photos", label: "Photos", iconName: "ImageIcon" }, // Using "ImageIcon" as the agreed string key
+    { href: "/admin", label: "Dashboard", iconName: "LayoutDashboard" as const },
+    { href: "/admin/categories", label: "Categories", iconName: "Layers" as const },
+    { href: "/admin/photos", label: "Photos", iconName: "ImageIcon" as const },
   ];
 
   return (
