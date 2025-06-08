@@ -20,7 +20,7 @@ export default function SiteFooter() {
         </div>
         <p className="mb-2">Phone: <a href="tel:+919827314661" className="hover:text-primary transition-colors">+91 9827314661</a></p>
         <p>&copy; {currentYear} Jayant Studio. All rights reserved.</p>
-        <p className="text-sm mt-1">Crafted with &hearts; for timeless memories.</p>
+        <p className="text-sm mt-1">Crafted with &hearts; vishal and vishal.</p>
       </div>
     </footer>
   );
