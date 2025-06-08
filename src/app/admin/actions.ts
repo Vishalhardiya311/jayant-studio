@@ -3,11 +3,17 @@
 
 import { revalidatePath } from "next/cache";
 import type { Category, Photo } from "@/lib/types";
-import { categories as categoriesData, photos as photosData } from "@/lib/data"; // Placeholder
+// Import the mutable arrays directly to modify them
+import { categories as categoriesData, photos as photosData } from "@/lib/data"; 
 
-// Simulate database operations
-let nextCategoryId = categoriesData.length + 1;
-let nextPhotoId = photosData.length + 1;
+// Simulate database operations - IDs need to be dynamic based on current array length + new entries
+// This needs to be robust if items are deleted. A simple increment might lead to ID collision if not careful,
+// but for in-memory, we'll find the max current ID.
+const getNextId = (items: Array<{id: string}>): string => {
+  if (items.length === 0) return "1";
+  return String(Math.max(...items.map(item => parseInt(item.id.replace(/\D/g,'') || "0"))) + 1);
+}
+
 
 export interface CategoryFormState {
   message: string;
@@ -25,21 +31,21 @@ export async function createCategory(
   }
 
   try {
-    // Simulate saving to database
+    const nextCategoryId = getNextId(categoriesData);
     const newCategory: Category = {
-      id: String(nextCategoryId++),
+      id: nextCategoryId,
       name: categoryName.trim(),
       slug: categoryName.trim().toLowerCase().replace(/\s+/g, "-"),
     };
-    categoriesData.push(newCategory); // Add to in-memory store
-    console.log("Created category:", newCategory);
+    categoriesData.push(newCategory); 
     
     revalidatePath("/admin/categories");
-    revalidatePath("/"); // Revalidate gallery page too if categories change
+    revalidatePath("/"); 
+    revalidatePath("/admin/(protected)/categories"); // ensure correct path revalidation
     return { message: `Category "${categoryName}" created successfully.`, type: "success" };
   } catch (e) {
-    console.error("Failed to create category", e);
-    return { message: "Failed to create category.", type: "error" };
+    const error = e instanceof Error ? e : new Error(String(e));
+    return { message: `Failed to create category: ${error.message}`, type: "error" };
   }
 }
 
@@ -54,45 +60,46 @@ export async function uploadPhoto(
 ): Promise<PhotoUploadFormState> {
   const title = formData.get("title") as string;
   const categoryId = formData.get("categoryId") as string;
-  const imageFile = formData.get("imageFile") as File;
+  const imageFile = formData.get("imageFile") as File; // This is for potential future use with actual storage
   const aiHintValue = formData.get("aiHint") as string | null;
 
   if (!categoryId) {
     return { message: "Please select a category.", type: "error" };
   }
+  // For this prototype, actual file upload isn't implemented, so imageFile check is less critical
+  // but we'll keep it for completeness.
   if (!imageFile || imageFile.size === 0) {
-    return { message: "Please select an image file.", type: "error" };
+     // In a real app, this would be a hard error. For placeholders, it's okay.
+     // For now, we proceed but a real image would be expected.
   }
 
-  const finalAiHint = aiHintValue ? aiHintValue.trim() : "";
 
-  // AI hint is optional. If provided (not an empty string after trim), it must be 1 or 2 words.
-  if (finalAiHint && finalAiHint.split(' ').length > 2) {
-    return { message: "AI hint, if provided, should be one or two words.", type: "error" };
+  const finalAiHint = aiHintValue ? aiHintValue.trim() : "";
+  if (finalAiHint && (finalAiHint.split(' ').length > 2 || finalAiHint.split(' ').some(word => word.length === 0))) {
+    return { message: "AI hint, if provided, should be one or two non-empty words.", type: "error" };
   }
 
   try {
-    // Simulate image upload to a service like Firebase Storage or Cloudinary
-    // For now, we'll just use a placeholder URL structure.
-    // Using a generic placeholder as actual file upload isn't implemented.
+    // Simulate image upload, using a placeholder.
     const imageUrl = `https://placehold.co/600x400.png`; 
+    const nextPhotoId = getNextId(photosData);
     
     const newPhoto: Photo = {
-      id: String(nextPhotoId++),
+      id: String(nextPhotoId),
       title: title || "Untitled Photo",
       categoryId,
-      imageUrl,
-      aiHint: finalAiHint // Save the potentially empty AI hint
+      imageUrl, // Using the placeholder
+      aiHint: finalAiHint || undefined // Store as undefined if empty for cleaner data
     };
-    photosData.push(newPhoto); // Add to in-memory store
-    console.log("Uploaded photo:", newPhoto);
+    photosData.push(newPhoto);
 
     revalidatePath("/admin/photos");
-    revalidatePath("/"); // Revalidate gallery page too
-    return { message: `Photo "${newPhoto.title}" uploaded successfully.`, type: "success" };
+    revalidatePath("/"); 
+    revalidatePath("/admin/(protected)/photos"); // ensure correct path revalidation
+    return { message: `Photo "${newPhoto.title}" (using placeholder image) uploaded successfully.`, type: "success" };
   } catch (e) {
-    console.error("Failed to upload photo", e);
-    return { message: "Failed to upload photo.", type: "error" };
+    const error = e instanceof Error ? e : new Error(String(e));
+    return { message: `Failed to upload photo: ${error.message}`, type: "error" };
   }
 }
 
@@ -102,20 +109,20 @@ export async function deleteCategory(categoryId: string): Promise<CategoryFormSt
     if (index === -1) {
       return { message: "Category not found.", type: "error" };
     }
-    // Also handle deleting photos in this category or reassigning them. For simplicity, just remove category for now.
+    
     const photosInCategory = photosData.filter(p => p.categoryId === categoryId).length;
     if (photosInCategory > 0) {
-        return { message: `Cannot delete category. It has ${photosInCategory} photo(s). Please remove photos first.`, type: "error"};
+        return { message: `Cannot delete category. It has ${photosInCategory} photo(s). Please remove or reassign photos first.`, type: "error"};
     }
 
     categoriesData.splice(index, 1);
-    console.log("Deleted category:", categoryId);
     revalidatePath("/admin/categories");
     revalidatePath("/");
+    revalidatePath("/admin/(protected)/categories");
     return { message: "Category deleted successfully.", type: "success" };
   } catch (e) {
-    console.error("Failed to delete category", e);
-    return { message: "Failed to delete category.", type: "error" };
+    const error = e instanceof Error ? e : new Error(String(e));
+    return { message: `Failed to delete category: ${error.message}`, type: "error" };
   }
 }
 
@@ -126,13 +133,12 @@ export async function deletePhoto(photoId: string): Promise<PhotoUploadFormState
       return { message: "Photo not found.", type: "error" };
     }
     photosData.splice(index, 1);
-    console.log("Deleted photo:", photoId);
     revalidatePath("/admin/photos");
     revalidatePath("/");
+    revalidatePath("/admin/(protected)/photos");
     return { message: "Photo deleted successfully.", type: "success" };
   } catch (e) {
-    console.error("Failed to delete photo", e);
-    return { message: "Failed to delete photo.", type: "error" };
+    const error = e instanceof Error ? e : new Error(String(e));
+    return { message: `Failed to delete photo: ${error.message}`, type: "error" };
   }
 }
-

@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react"; // Changed from react-dom
-import { useFormStatus } from "react-dom"; // useFormStatus remains in react-dom
+import { useActionState, useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { uploadPhoto, type PhotoUploadFormState } from "@/app/admin/actions";
 import type { Category } from "@/lib/types";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,7 @@ function SubmitButton() {
 
 export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
   const initialState: PhotoUploadFormState | undefined = undefined;
-  const [state, formAction] = useActionState(uploadPhoto, initialState); // Changed to useActionState
+  const [state, formAction] = useActionState(uploadPhoto, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -69,7 +69,7 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     <Card>
       <CardHeader>
         <CardTitle>Upload New Photo</CardTitle>
-        <CardDescription>Add a new photo to your gallery. Select a category, provide an optional title, and an AI hint for image searching.</CardDescription>
+        <CardDescription>Add a new photo to your gallery. Select a category, provide an optional title, and an AI hint for image searching if using placeholders. An actual image file is technically required but a placeholder will be used by the system for now.</CardDescription>
       </CardHeader>
       <CardContent>
         <form ref={formRef} action={formAction} className="space-y-6">
@@ -80,46 +80,50 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
 
           <div>
             <Label htmlFor="categoryId" className="font-semibold">Category</Label>
-            <Select name="categoryId" required>
-              <SelectTrigger className="w-full mt-1">
-                <SelectValue placeholder="Select a category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {categories.length > 0 ? (
+              <Select name="categoryId" required>
+                <SelectTrigger className="w-full mt-1">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <p className="text-sm text-muted-foreground mt-1">No categories available. Please create a category first.</p>
+            )}
           </div>
           
           <div>
-            <Label htmlFor="aiHint" className="font-semibold">AI Hint (Optional)</Label>
+            <Label htmlFor="aiHint" className="font-semibold">AI Hint (Optional, 1-2 words)</Label>
             <Input 
               id="aiHint" 
               name="aiHint" 
               type="text" 
-              placeholder="e.g., couple beach (1-2 words)" 
+              placeholder="e.g., couple beach" 
               className="mt-1"
             />
-            <p className="text-xs text-muted-foreground mt-1">One or two keywords for AI image search if using placeholders.</p>
+            <p className="text-xs text-muted-foreground mt-1">Keywords for AI search if using placeholders (e.g., "bride groom").</p>
           </div>
 
           <div>
-            <Label htmlFor="imageFile" className="font-semibold">Image File</Label>
+            <Label htmlFor="imageFile" className="font-semibold">Image File (Required for preview)</Label>
             <Input 
               id="imageFile" 
               name="imageFile" 
               type="file" 
-              required 
+              required // Keep required for file input, even if backend uses placeholder
               className="mt-1 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
               accept="image/png, image/jpeg, image/gif, image/webp"
               onChange={handleFileChange}
               ref={fileInputRef}
             />
             {preview && (
-              <div className="mt-4 border rounded-md p-2 inline-block">
+              <div className="mt-4 border rounded-md p-2 inline-block bg-muted">
                 <Image src={preview} alt="Image preview" width={200} height={200} className="object-contain rounded max-h-[200px]" />
               </div>
             )}
@@ -130,4 +134,3 @@ export default function PhotoUploadForm({ categories }: PhotoUploadFormProps) {
     </Card>
   );
 }
-
