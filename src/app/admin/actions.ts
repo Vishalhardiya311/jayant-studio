@@ -1,4 +1,3 @@
-
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -40,8 +39,8 @@ export async function createCategory(
     categoriesData.push(newCategory); 
     
     revalidatePath("/admin/categories");
+    revalidatePath("/admin/photos"); // Revalidate photos page for category dropdown
     revalidatePath("/"); 
-    revalidatePath("/admin/(protected)/categories"); // ensure correct path revalidation
     return { message: `Category "${categoryName}" created successfully.`, type: "success" };
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e));
@@ -95,7 +94,6 @@ export async function uploadPhoto(
 
     revalidatePath("/admin/photos");
     revalidatePath("/"); 
-    revalidatePath("/admin/(protected)/photos"); // ensure correct path revalidation
     return { message: `Photo "${newPhoto.title}" (using placeholder image) uploaded successfully.`, type: "success" };
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e));
@@ -117,8 +115,8 @@ export async function deleteCategory(categoryId: string): Promise<CategoryFormSt
 
     categoriesData.splice(index, 1);
     revalidatePath("/admin/categories");
+    revalidatePath("/admin/photos"); // Revalidate photos page for category dropdown
     revalidatePath("/");
-    revalidatePath("/admin/(protected)/categories");
     return { message: "Category deleted successfully.", type: "success" };
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e));
@@ -135,7 +133,6 @@ export async function deletePhoto(photoId: string): Promise<PhotoUploadFormState
     photosData.splice(index, 1);
     revalidatePath("/admin/photos");
     revalidatePath("/");
-    revalidatePath("/admin/(protected)/photos");
     return { message: "Photo deleted successfully.", type: "success" };
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e));
